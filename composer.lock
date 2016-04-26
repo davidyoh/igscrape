@@ -1,0 +1,106 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "ad12e54293d89420c035e2a0fb028c62",
+    "packages": [
+        {
+            "name": "mashape/unirest-php",
+            "version": "v3.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Mashape/unirest-php.git",
+                "reference": "c01f685e3b29fb520263e9a850d2cbd14d33a635"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Mashape/unirest-php/zipball/c01f685e3b29fb520263e9a850d2cbd14d33a635",
+                "reference": "c01f685e3b29fb520263e9a850d2cbd14d33a635",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "0.1.*",
+                "phpunit/phpunit": "~4.4"
+            },
+            "suggest": {
+                "ext-json": "Allows using JSON Bodies for sending and parsing requests"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Unirest": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Unirest PHP",
+            "homepage": "https://github.com/Mashape/unirest-php",
+            "keywords": [
+                "client",
+                "curl",
+                "http",
+                "https",
+                "rest"
+            ],
+            "time": "2016-03-23 04:18:08"
+        },
+        {
+            "name": "raiym/instagram-php-scraper",
+            "version": "v0.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/raiym/instagram-php-scraper.git",
+                "reference": "857f5ac8801d1560d01a589390400f6c87dc4bb7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/raiym/instagram-php-scraper/zipball/857f5ac8801d1560d01a589390400f6c87dc4bb7",
+                "reference": "857f5ac8801d1560d01a589390400f6c87dc4bb7",
+                "shasum": ""
+            },
+            "require": {
+                "mashape/unirest-php": "^3.0",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "InstagramScraper": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "raiym",
+                    "email": "r.kapishev@gmail.com"
+                }
+            ],
+            "description": "Instagram PHP Scraper. Get account information, photos and videos without any authorization",
+            "homepage": "https://github.com/raiym/instagram-php-scraper",
+            "keywords": [
+                "instagram",
+                "scraper"
+            ],
+            "time": "2016-04-22 10:58:24"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}
