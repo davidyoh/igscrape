@@ -20,6 +20,16 @@ else {
     $mediacount = "50";
 }
 
+if(isset($_GET['type'] )) 
+{
+    $type =  $_GET["type"];
+}
+else {
+    $type = "default";
+}
+
+
+
 
 
 $account = $instagram->getAccount($username);
@@ -59,35 +69,94 @@ Available properties:
     $videoStandardResolutionUrl;
     $videoLowBandwidthUrl;
 */
-echo '<table border = "1">';
-echo '<tr>';
-echo '<td>id</td>';
-echo '<td>time</td>';
-echo '<td>type</td>';
-echo '<td>imgurl</td>';
-echo '<td>caption</td>';
-echo '<td>follows</td>';
-echo '<td>likes</td>';
-echo '<td>comments</td>';
-echo '<td>likes%</td>';
-echo '<td>comments%</td>';
-echo '</tr>';
+$textresponse = "";
+
+
+
+$jsonres = [];
+
+
+// Counters
+$iglike=0;
+$igcomments=0;
+$igCounter = 0;
+
+foreach( $medias as $key ) {
+      if ($igCounter>=$mediacount) break;
+      $igCounter++;
+      $iglike += $key->likes;
+      $igcomments += $key->comments;
+
+}
+
+
+$iglikeavg = $iglike/$igCounter;
+$igcommentsavg = $igcomments/$igCounter;
+$avgLikes = round(($iglike/($follows*$igCounter))*100,4);
+$avgComments = round(($igcomments/($follows*$igCounter))*100,4);
+
+$jsonres['username'] = $username;
+$jsonres['totalPosts'] = $igCounter;
+$jsonres['avgLikes'] = $avgLikes;
+$jsonres['avgComments'] = $avgComments;
+$jsonres['followers'] = $follows;
+$jsonres['totalLikes'] = $iglike;
+$jsonres['totalComments'] = $igcomments;
+
+$textresponse .= '<h2>' . $username . '</h2>';
+$textresponse .= '<h3>Followers: ' . $follows . '</h3>';
+$textresponse .= '<p><b>Total Posts:</b> ' . $igCounter;
+$textresponse .= ' | <b>Total Likes:</b> <u>' . $iglike . '</u>';
+$textresponse .= ' | <b>Total Comments:</b> <u>' . $igcomments . '</u></p>';
+$textresponse .= '<p><b>Avg Likes and Avg Comments:</b><u>' . $avgLikes . '%</u> | <u>' . $avgComments. '%</u> </p>';
+$textresponse .= '<table border = "1">';
+$textresponse .= '<tr>';
+$textresponse .= '<td>id</td>';
+$textresponse .= '<td>time</td>';
+$textresponse .= '<td>type</td>';
+$textresponse .= '<td>imgurl</td>';
+$textresponse .= '<td>caption</td>';
+$textresponse .= '<td>follows: '. $follows . '</td>';
+$textresponse .= '<td>likes: ' . round($iglikeavg,1) . '</td>';
+$textresponse .= '<td>comments: ' . round($igcommentsavg,1) . '</td>';
+$textresponse .= '<td>likes%</td>';
+$textresponse .= '<td>comments%</td>';
+$textresponse .= '</tr>';
+
+
+
+
+
 $igCounter = 0;
   foreach( $medias as $key ) {
-  			echo "<tr>";
-  			echo "<td>" . $igCounter++ . "</td>";
-            echo "<td>" . date('Y-m-d H:i:s', $key->createdTime) . "</td>";
-             echo "<td>" . $key->type. "</td>";
-            // echo "<td><img width = '50' src = '" . $key->imageThumbnailUrl. "''></td>";
-               echo "<td>".$key->imageThumbnailUrl."</td>";
-            echo "<td>" . $key->caption. "</td>";
-                    echo "<td>" . $follows. "</td>";
-             echo "<td>" . $key->likes. "</td>";
-            echo "<td>" . $key->comments. "</td>";
-              echo "<td>" . round((($key->likes/$follows)* 100),4). "%</td>";
-               echo "<td>" . round((($key->comments/$follows)* 100),4). "%</td>";
-            echo "</tr>";
-         }
-echo '</table>';
+        if ($igCounter>=$mediacount) break;
+        $igCounter++;
+
+    		$textresponse .= "<tr>";
+  			$textresponse .= "<td>" . $igCounter . "</td>";
+        $textresponse .= "<td>" . date('Y-m-d H:i:s', $key->createdTime) . "</td>";
+        $textresponse .= "<td>" . $key->type. "</td>";
+        $textresponse .= "<td>".$key->imageThumbnailUrl."</td>";
+        $textresponse .= "<td>" . $key->caption. "</td>";
+        $textresponse .= "<td>" . $follows. "</td>";
+        $textresponse .= "<td>" . $key->likes. "</td>";
+        $textresponse .= "<td>" . $key->comments. "</td>";
+        $textresponse .= "<td>" . round((($key->likes/$follows)* 100),4). "%</td>";
+        $textresponse .= "<td>" . round((($key->comments/$follows)* 100),4). "%</td>";
+        $textresponse .= "</tr>";
+      }
+
+$textresponse .= '</table>';
+
 //echo $medias[0]->imageHighResolutionUrl;
 //echo $medias[0]->caption;
+if ($type=="default"){
+echo $textresponse;
+}
+else if ($type == "json") {
+  echo json_encode($jsonres);
+}
+
+else {
+  echo "invalid type";
+}
