@@ -12,6 +12,15 @@ else {
     $username = "ipsy";
 }
 
+if(isset($_GET['mediacount'] )) 
+{
+    $mediacount =  $_GET["mediacount"];
+}
+else {
+    $mediacount = "50";
+}
+
+
 
 $account = $instagram->getAccount($username);
 /*
@@ -33,7 +42,7 @@ $follows= $account->followedByCount;
 
 //echo 'folllow: ' . $follows;
 
-$medias = $instagram->getMedias($username, 50);
+$medias = $instagram->getMedias($username, $mediacount);
 
 /*
 Available properties: 
