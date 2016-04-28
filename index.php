@@ -126,14 +126,13 @@ $textresponse .= '</tr>';
 
 
 
-
 $igCounter = 0;
   foreach( $medias as $key ) {
         if ($igCounter>=$mediacount) break;
         $igCounter++;
 
-    		$textresponse .= "<tr>";
-  			$textresponse .= "<td>" . $igCounter . "</td>";
+   		$textresponse .= "<tr>";
+		$textresponse .= "<td>" . $igCounter . "</td>";
         $textresponse .= "<td>" . date('Y-m-d H:i:s', $key->createdTime) . "</td>";
         $textresponse .= "<td>" . $key->type. "</td>";
         $textresponse .= "<td>".$key->imageThumbnailUrl."</td>";
@@ -144,6 +143,8 @@ $igCounter = 0;
         $textresponse .= "<td>" . round((($key->likes/$follows)* 100),4). "%</td>";
         $textresponse .= "<td>" . round((($key->comments/$follows)* 100),4). "%</td>";
         $textresponse .= "</tr>";
+
+
       }
 
 $textresponse .= '</table>';
@@ -155,6 +156,10 @@ echo $textresponse;
 }
 else if ($type == "json") {
   echo json_encode($jsonres);
+}
+
+else if ($type == "chart") {
+
 }
 
 else {
