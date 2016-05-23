@@ -103,39 +103,54 @@ $jsonres['followers'] = $follows;
 $jsonres['totalLikes'] = $iglike;
 $jsonres['totalComments'] = $igcomments;
 
+//?username=fabfitfun&mediacount=200
+$more10 = '/?username='. $username . '&mediacount=10';
+$more20 = '/?username='. $username . '&mediacount=20';
+$more30 = '/?username='. $username . '&mediacount=30';
+$more50 = '/?username='. $username . '&mediacount=50';
+
 $textresponse .= '<h2>' . $username . '</h2>';
-$textresponse .= '<h3>Followers: ' . $follows . '</h3>';
+$textresponse .= '<h3>';
+$textresponse .= '<a href = "'.  $more10  .'">10 Posts</a> | ';
+$textresponse .= '<a href = "'.  $more20  .'">20 Posts</a> | ';
+$textresponse .= '<a href = "'.  $more30  .'">30 Posts</a> | ';
+$textresponse .= '<a href = "'.  $more50  .'">50 Posts</a> | ';
+$textresponse .= 'Followers: ' . $follows;
+$textresponse .= '</h3>';
 $textresponse .= '<p><b>Total Posts:</b> ' . $igCounter;
 $textresponse .= ' | <b>Total Likes:</b> <u>' . $iglike . '</u>';
 $textresponse .= ' | <b>Total Comments:</b> <u>' . $igcomments . '</u></p>';
 $textresponse .= '<p><b>Avg Likes and Avg Comments:</b><u>' . $avgLikes . '%</u> | <u>' . $avgComments. '%</u> </p>';
-$textresponse .= '<table border = "1">';
+$textresponse .= '<table class="table" id="simpleTable" >';
+$textresponse .= '<thead>';
 $textresponse .= '<tr>';
-$textresponse .= '<td>id</td>';
-$textresponse .= '<td>time</td>';
-$textresponse .= '<td>type</td>';
-$textresponse .= '<td>imgurl</td>';
-$textresponse .= '<td>caption</td>';
-$textresponse .= '<td>follows: '. $follows . '</td>';
-$textresponse .= '<td>likes: ' . round($iglikeavg,1) . '</td>';
-$textresponse .= '<td>comments: ' . round($igcommentsavg,1) . '</td>';
-$textresponse .= '<td>likes%</td>';
-$textresponse .= '<td>comments%</td>';
-$textresponse .= '</tr>';
+$textresponse .= '<th  data-sort="int" >id</th>';
+$textresponse .= '<th>time</th>';
+$textresponse .= '<th>type</th>';
+$textresponse .= '<th>imgurl</th>';
+$textresponse .= '<th>caption</th>';
+$textresponse .= '<th data-sort="int">follows: '. $follows . '</th>';
+$textresponse .= '<th data-sort="int">likes: ' . round($iglikeavg,1) . '</th>';
+$textresponse .= '<th data-sort="int">comments: ' . round($igcommentsavg,1) . '</th>';
+$textresponse .= '<th data-sort="float" >likes%</th>';
+$textresponse .= '<th data-sort="float" >comments%</th>';
+$textresponse .= '</thead>';
+$textresponse .= '</tr><tbody>';
 
+// table array
 
-
+//
 
 $igCounter = 0;
   foreach( $medias as $key ) {
         if ($igCounter>=$mediacount) break;
-        $igCounter++;
 
+        $igCounter++;
    		$textresponse .= "<tr>";
 		$textresponse .= "<td>" . $igCounter . "</td>";
         $textresponse .= "<td>" . date('Y-m-d H:i:s', $key->createdTime) . "</td>";
         $textresponse .= "<td>" . $key->type. "</td>";
-        $textresponse .= "<td>".$key->imageThumbnailUrl."</td>";
+        $textresponse .= "<td><img src = '".$key->imageThumbnailUrl."' border = 0></td>";
         $textresponse .= "<td>" . $key->caption. "</td>";
         $textresponse .= "<td>" . $follows. "</td>";
         $textresponse .= "<td>" . $key->likes. "</td>";
@@ -145,14 +160,49 @@ $igCounter = 0;
         $textresponse .= "</tr>";
 
 
+        //lets put this into an array
+
+
+
       }
 
-$textresponse .= '</table>';
+$textresponse .= '</tbody></table>';
 
 //echo $medias[0]->imageHighResolutionUrl;
 //echo $medias[0]->caption;
 if ($type=="default"){
+?>
+<!doctype html><html lang=en-us><meta charset=utf-8>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+  <script src="/stupidtable.min.js?dev"></script>
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<?
 echo $textresponse;
+
+?>
+<script>
+$(document).ready(function() 
+    { 
+         $("#simpleTable").stupidtable();
+    } 
+); 
+    
+</script>
+</body>
+</html>
+
+<?
 }
 else if ($type == "json") {
   echo json_encode($jsonres);
