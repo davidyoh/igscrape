@@ -202,7 +202,22 @@ if ($type=="default"){
 echo $textresponse;
 
 ?>
-</div></div>
+</div>
+
+<footer class="footer">
+      <div class="container">
+        <p class="text-muted">
+          <a href = "/?username=ipsy&mediacount=50">Ipsy</a> |
+          <a href = "/?username=fabfitfun&mediacount=50">FabFitFun</a> |
+          <a href = "/?username=birchbox&mediacount=50">BirchBox</a> |
+          <a href = "/?username=lootcrate&mediacount=50">LootCrate</a> |
+
+
+        </p>
+      </div>
+    </footer>
+
+</div>
 <script>
 $(document).ready(function() 
     { 
