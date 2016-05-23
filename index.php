@@ -130,6 +130,7 @@ $textresponse .= '<table class="table" id="simpleTable" >';
 $textresponse .= '<thead>';
 $textresponse .= '<tr>';
 $textresponse .= '<th  data-sort="int" >id</th>';
+
 $textresponse .= '<th>time</th>';
 $textresponse .= '<th>type</th>';
 $textresponse .= '<th>imgurl</th>';
@@ -139,6 +140,7 @@ $textresponse .= '<th data-sort="int">likes: ' . round($iglikeavg,1) . '</th>';
 $textresponse .= '<th data-sort="int">comments: ' . round($igcommentsavg,1) . '</th>';
 $textresponse .= '<th data-sort="float" >likes%</th>';
 $textresponse .= '<th data-sort="float" >comments%</th>';
+$textresponse .= '<th>id</th>';
 $textresponse .= '</thead>';
 $textresponse .= '</tr><tbody>';
 
@@ -153,7 +155,9 @@ $igCounter = 0;
         $igCounter++;
    		$textresponse .= "<tr>";
 		$textresponse .= "<td>" . $igCounter . "</td>";
+
         $textresponse .= "<td>" . date('Y-m-d H:i:s', $key->createdTime) . "</td>";
+
         $textresponse .= "<td>" . $key->type. "</td>";
         $textresponse .= "<td><img src = '".$key->imageThumbnailUrl."' border = 0></td>";
         $textresponse .= "<td>" . $key->caption. "</td>";
@@ -162,6 +166,7 @@ $igCounter = 0;
         $textresponse .= "<td>" . $key->comments. "</td>";
         $textresponse .= "<td>" . round((($key->likes/$follows)* 100),4). "%</td>";
         $textresponse .= "<td>" . round((($key->comments/$follows)* 100),4). "%</td>";
+                    $textresponse .= "<td>" . $key->id . "</td>";
         $textresponse .= "</tr>";
 
 
