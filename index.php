@@ -121,6 +121,11 @@ $textresponse .= '<p><b>Total Posts:</b> ' . $igCounter;
 $textresponse .= ' | <b>Total Likes:</b> <u>' . $iglike . '</u>';
 $textresponse .= ' | <b>Total Comments:</b> <u>' . $igcomments . '</u></p>';
 $textresponse .= '<p><b>Avg Likes and Avg Comments:</b><u>' . $avgLikes . '%</u> | <u>' . $avgComments. '%</u> </p>';
+
+
+$textresponse .= '<p class="bg-info">Click on the header cells to sort</p>';
+
+
 $textresponse .= '<table class="table" id="simpleTable" >';
 $textresponse .= '<thead>';
 $textresponse .= '<tr>';
@@ -186,11 +191,13 @@ if ($type=="default"){
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 </head>
 <body>
-
+<div class="container">
+<div class="row">
 <?
 echo $textresponse;
 
 ?>
+</div></div>
 <script>
 $(document).ready(function() 
     { 
